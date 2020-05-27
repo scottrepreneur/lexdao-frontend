@@ -48,6 +48,7 @@ const theme = darkMode => ({
 
   // for setting css on <html>
   backgroundColor: darkMode ? '#333639' : white,
+  backgroundGradient: 'linear-gradient(to right, rgb(20, 14, 56), rgb(25, 64, 137))',
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   inputBackground: darkMode ? '#202124' : white,
@@ -110,9 +111,9 @@ const theme = darkMode => ({
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://rsms.me/inter/inter.css');
-  html { font-family: 'Inter', sans-serif; }
+  html { font-family: Comfortaa,Roboto,'Helvetica Neue',Arial,sans-serif }
   @supports (font-variation-settings: normal) {
-    html { font-family: 'Inter var', sans-serif; }
+    html { font-family: Comfortaa, Roboto,'Helvetica Neue', Arial, sans-serif }
   }
   
   html,

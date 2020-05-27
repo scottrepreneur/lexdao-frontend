@@ -3,15 +3,12 @@ import styled from 'styled-components'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Web3ReactManager from '../components/Web3ReactManager'
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-import NavigationTabs from '../components/NavigationTabs'
-import { isAddress, getAllQueryParams } from '../utils'
+import { getAllQueryParams } from '../utils'
 
-const Swap = lazy(() => import('./Swap'))
-const Send = lazy(() => import('./Send'))
-const Pool = lazy(() => import('./Pool'))
+const Landing = lazy(() => import('./Landing'))
+const PersonalToken = lazy(() => import('./PersonalToken'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -20,11 +17,6 @@ const AppWrapper = styled.div`
   height: 100vh;
 `
 
-const HeaderWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  justify-content: space-between;
-`
 const FooterWrapper = styled.div`
   width: 100%;
   min-height: 30px;
@@ -42,8 +34,7 @@ const BodyWrapper = styled.div`
 `
 
 const Body = styled.div`
-  max-width: 35rem;
-  width: 90%;
+  width: 100%;
   /* margin: 0 1.25rem 1.25rem 1.25rem; */
 `
 
@@ -53,59 +44,22 @@ export default function App() {
     <>
       <Suspense fallback={null}>
         <AppWrapper>
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
                 <BrowserRouter>
-                  <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
                     <Switch>
-                      <Route exact strict path="/swap" component={() => <Swap params={params} />} />
                       <Route
-                        exact
-                        strict
-                        path="/swap/:tokenAddress?"
-                        render={({ match, location }) => {
-                          if (isAddress(match.params.tokenAddress)) {
-                            return (
-                              <Swap
-                                location={location}
-                                initialCurrency={isAddress(match.params.tokenAddress)}
-                                params={params}
-                              />
-                            )
-                          } else {
-                            return <Redirect to={{ pathname: '/swap' }} />
-                          }
-                        }}
-                      />
-                      <Route exact strict path="/send" component={() => <Send params={params} />} />
-                      <Route
-                        exact
-                        strict
-                        path="/send/:tokenAddress?"
-                        render={({ match }) => {
-                          if (isAddress(match.params.tokenAddress)) {
-                            return <Send initialCurrency={isAddress(match.params.tokenAddress)} params={params} />
-                          } else {
-                            return <Redirect to={{ pathname: '/send' }} />
-                          }
-                        }}
+                        path="/personal-token"
+                        component={() => <PersonalToken params={params} />}
                       />
                       <Route
-                        path={[
-                          '/add-liquidity',
-                          '/remove-liquidity',
-                          '/create-exchange',
-                          '/create-exchange/:tokenAddress?'
-                        ]}
-                        component={() => <Pool params={params} />}
+                        path="/"
+                        component={() => <Landing params={params} />}
                       />
-                      <Redirect to="/swap" />
+                      <Redirect to="/" />
                     </Switch>
                   </Suspense>
                 </BrowserRouter>
