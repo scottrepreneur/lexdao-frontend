@@ -1,8 +1,8 @@
 {
-  "name": "uniswap",
-  "description": "Uniswap Exchange Protocol",
+  "name": "lexdao",
+  "description": "LexDAO",
   "version": "0.1.0",
-  "homepage": "https://uniswap.exchange",
+  "homepage": "https://lexdao.org",
   "private": true,
   "dependencies": {
     "@reach/dialog": "^0.2.8",
